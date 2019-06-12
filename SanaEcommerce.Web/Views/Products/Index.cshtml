@@ -1,0 +1,69 @@
+﻿@model IEnumerable<SanaEcommerce.Model.Product>
+
+@{
+	ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+	@Html.ActionLink("Create New", "Create", null, null, new { @class = "btn btn-primary btn-large" })
+	
+	@if ((bool)Session["database"])
+	{
+		<button id="btnInmemory" class="btn btn-large btn-success pull-right" type="button" onclick="ChangeStorage('memory');">Get data from Memory</button>
+	}
+	else
+	{
+		<button id="btnDatabase" class="btn btn-large btn-success pull-right" type="button" onclick="ChangeStorage('database');">Get data from Database</button>
+	}
+	
+	
+</p>
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.CategoryId)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Code)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Name)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Price)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.Stock)
+		</th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.ProductCategory.CategoryName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Code)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Name)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Price)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.Stock)
+			</td>
+		</tr>
+	}
+
+</table>
+
+<script type="text/javascript">
+	function ChangeStorage(storage) {
+		window.location.href = "/Products/index?storageMode=" + storage;
+	}
+</script>
